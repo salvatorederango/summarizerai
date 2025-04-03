@@ -1,6 +1,6 @@
 from src.mistral_uploader import upload_pdf
 from src.mistral_ocr import extract_pages
-from src.pdf_writer import save_summary_as_pdf
+from src.pdf_writer import save_markdown_as_pdf
 from src.summarizer import summarize_text
 from dotenv import load_dotenv
 import os
@@ -26,15 +26,14 @@ def main():
             pages = extract_pages(api_key, signed_url)
 
             basename = os.path.splitext(filename)[0]
-            output_summary_pdf = os.path.join(output_dir, f"{basename}_riassunto.pdf")
+            output_summary_path = os.path.join(output_dir, f"{basename}_riassunto.txt")
 
             summary = summarize_text(api_key, pages)
+            print(f"\n Riassunto per {filename}:\n")
+            print(summary)
 
-            # Rimuove la parte "Bibliografia" e successive (se presente)
-            if "bibliografia" in summary.lower():
-                summary = summary[:summary.lower().index("bibliografia")]
-
-            save_summary_as_pdf(summary, output_summary_pdf)
+            with open(output_summary_path, "w", encoding="utf-8") as f:
+                f.write(summary)
 
             print(f"✅ File completato: {filename}\n")
 
@@ -43,3 +42,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+

@@ -1,7 +1,6 @@
 import os
 from mistralai import Mistral
 
-#client = Mistral(api_key=os.environ["MISTRAL_API_KEY"])
 
 def upload_pdf(api_key,pdf_path):
     client = Mistral(api_key=api_key)

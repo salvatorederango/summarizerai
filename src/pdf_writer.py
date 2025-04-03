@@ -1,23 +1,40 @@
-from fpdf import FPDF
+from reportlab.lib.pagesizes import A4
+from reportlab.platypus import Paragraph, SimpleDocTemplate, Spacer
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.lib.enums import TA_JUSTIFY
 import os
 
-def save_markdown_as_pdf(pages, output_path):
-    """
-    Salva il contenuto Markdown delle pagine OCR in un file PDF.
-    """
-    pdf = FPDF()
-    pdf.set_auto_page_break(auto=True, margin=15)
-    pdf.set_font("Arial", size=12)
+def save_summary_as_pdf(text, output_path):
+    doc = SimpleDocTemplate(
+        output_path,
+        pagesize=A4,
+        leftMargin=72,
+        rightMargin=72,
+        topMargin=72,
+        bottomMargin=72
+    )
 
-    for page in pages:
-        pdf.add_page()
-        # Converti Markdown in testo semplice (puoi anche usare markdown2 se vuoi renderlo meglio)
-        clean_text = page.markdown.replace("#", "").strip()
-        for line in clean_text.split("\n"):
-            pdf.multi_cell(0, 10, line)
+    styles = getSampleStyleSheet()
+    styles.add(ParagraphStyle(
+        name='DoubleSpaced',
+        fontName='Times-Roman',     # Font incluso in ReportLab
+        fontSize=12,
+        leading=24,
+        alignment=TA_JUSTIFY
+    ))
 
-    # Assicurati che la cartella esista
-    os.makedirs(os.path.dirname(output_path), exist_ok=True)
-    pdf.output(output_path)
+    elements = []
+    paragraphs = text.split("\n")
+    for para in paragraphs:
+        if para.strip() == "":
+            elements.append(Spacer(1, 12))
+            continue
+        if para.strip().startswith("#"):
+            clean_title = para.lstrip("#").strip()
+            elements.append(Paragraph(f"<b>{clean_title}</b>", styles['DoubleSpaced']))
+        else:
+            elements.append(Paragraph(para.strip(), styles['DoubleSpaced']))
+        elements.append(Spacer(1, 12))
 
+    doc.build(elements)
     print(f"📄 PDF salvato in: {output_path}")
