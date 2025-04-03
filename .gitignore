@@ -14,5 +14,5 @@ venv/
 .DS_Store
 Thumbs.db
 
-# PDF files (optional)
+# PDF files
 data/

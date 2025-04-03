@@ -1,76 +1,98 @@
-# 🧠 SUMMERIZERAI
+# 🧠 SUMMARIZERAI
 
-**SUMMERRIZERAI** è un progetto Python che riceve un file PDF e, sfruttando le API di **Mistral AI**, esegue il riconoscimento del testo (OCR) e restituisce un riassunto del contenuto.
+**SummarizerAI** è un progetto Python che riceve uno o più file PDF e, sfruttando le API di **Mistral AI**, esegue il riconoscimento del testo (OCR) e genera un riassunto in formato PDF del contenuto.
 
 ---
 
 ## 🚀 Funzionalità
 
-- Carica un file PDF (tramite API Mistral)
-- Ottiene un URL firmato dal file caricato
-- Richiede il riassunto del documento tramite OCR
-- Restituisce il testo estratto e riassunto
+- Caricamento di file PDF tramite API di Mistral
+- Estrazione del testo tramite OCR
+- Generazione del riassunto del contenuto
+- Salvataggio del riassunto in PDF con:
+  - Font **Times New Roman**
+  - Paragrafi giustificati
+  - Interlinea doppia
+  - Titolo estratto dall’intestazione del PDF originale
 
 ---
 
 ## 🗂️ Struttura del progetto
 
-PdfSummarizerAI/ 
-├── data/ 
-│ └── input/ # Inserisci qui i file PDF da elaborare 
-├── src/ 
-    │ 
-    ├── mistral_uploader.py # Upload dei file PDF 
-    │ 
-    ├── mistral_ocr.py # Richiesta OCR e riassunto 
-├── main.py # Punto di ingresso principale 
-├── .gitignore # Esclusione file da Git 
-├── requirements.txt # Dipendenze Python 
-└── README.md # Questo file
-
+```
+summarizerai/
+├── data/
+│   ├── input/              # Inserisci qui i file PDF da elaborare
+│   └── output/             # Verranno generati qui i file PDF riassunti
+├── src/
+│   ├── mistral_uploader.py # Upload dei file PDF su Mistral
+│   ├── mistral_ocr.py      # OCR e estrazione testo dalle immagini
+│   ├── summarizer.py       # Generazione del riassunto
+│   └── pdf_writer.py       # Creazione dei file PDF di output
+├── main.py                 # Punto di ingresso dell'applicazione
+├── requirements.txt        # Dipendenze Python
+├── .env                    # File da escludere da Git
+├── .gitignore              # File da escludere da Git
+└── README.md               # Documentazione del progetto
+```
 
 ---
 
 ## ⚙️ Requisiti
 
-- Python 3.8 o superiore
-- Chiave API di Mistral: [https://mistral.ai](https://mistral.ai)
-- Libreria `mistralai` installata (SDK ufficiale)
+- Python **3.8** o superiore
+- Chiave API **Mistral** → [https://mistral.ai](https://mistral.ai)
+- Librerie Python:
+  - `mistralai`
+  - `reportlab`
+  - `pdfplumber`
+  - `python-dotenv`
 
 ---
 
 ## 🧪 Installazione
 
-1. **Crea un ambiente virtuale (opzionale ma consigliato):**
+1. **Crea un ambiente virtuale:**
 
 ```bash
 python3 -m venv .venv
-source .venv/bin/activate   # Su Windows: .venv\Scripts\activate
+source .venv/bin/activate         # Su Windows: .venv\Scripts\activate
 
+```
 
-Installa le dipendenze:
+2. **Installa le dipendenze**
 
+```bash
 pip install -r requirements.txt
+```
 
-pip freeze > requirements.txt
+3. **Crea un file .env nella root del progetto con:**
+```bash
+MISTRAL_API_KEY=la_tua_api_key
+FILE_INPUT_DIR=data/input
+FILE_OUTPUT_DIR=data/output
+```
 
+## Utilizzo
 
-Esporta la tua API key Mistral:
+1. Inserisci uno o più file PDF nella cartella data/input/
+Puoi anche creare sottocartelle per organizzare i file: la struttura verrà replicata in output.
 
-export MISTRAL_API_KEY=la_tua_api_key
+2. Esegui lo script principale:
 
-Su Windows: set MISTRAL_API_KEY=la_tua_api_key
-
-
-Esegui il programma:
-
+```bash
 python main.py
+```
 
+3. Esegui lo script principale:
+I file riassunti saranno salvati in data/output/ con lo stesso nome (e struttura) del file di origine.
 
-Utilizzo
-Inserisci un file PDF o una directory con pdf nella cartella data/input/ (es: 1.pdf)
+## Output
 
-Avvia main.py
+I PDF generati conterranno:
 
-Otterrai in data/output un'analoga struttura di cartelle con i file con i riassunti direttamente nel formato pdf.
-L'applicazione estrae dall'intestazione il nome del titolo per ogni file da generare.
+    -Titolo preso automaticamente dall’intestazione del documento
+
+    -Riassunto generato con Mistral AI
+
+Se il testo contiene una sezione "Bibliografia", questa verrà esclusa dal riassunto finale.-
