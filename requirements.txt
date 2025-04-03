@@ -1,7 +1,10 @@
 annotated-types==0.7.0
 anyio==4.9.0
 certifi==2025.1.31
+cffi==1.17.1
 chardet==5.2.0
+charset-normalizer==3.4.1
+cryptography==44.0.2
 eval_type_backport==0.2.2
 exceptiongroup==1.2.2
 fpdf==1.7.2
@@ -10,9 +13,13 @@ httpcore==1.0.7
 httpx==0.28.1
 idna==3.10
 mistralai==1.6.0
+pdfminer.six==20250327
+pdfplumber==0.11.6
 pillow==11.1.0
+pycparser==2.22
 pydantic==2.11.1
 pydantic_core==2.33.0
+pypdfium2==4.30.1
 python-dateutil==2.9.0.post0
 python-dotenv==1.1.0
 reportlab==4.3.1

@@ -1,9 +1,10 @@
 from reportlab.lib.pagesizes import A4
 from reportlab.platypus import Paragraph, SimpleDocTemplate, Spacer
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
-from reportlab.lib.enums import TA_JUSTIFY, TA_CENTER
+from reportlab.lib.enums import TA_JUSTIFY
+import os
 
-def save_summary_as_pdf(text, output_path, header_text="Riassunto del documento"):
+def save_summary_as_pdf(text, output_path):
     doc = SimpleDocTemplate(
         output_path,
         pagesize=A4,
@@ -16,27 +17,13 @@ def save_summary_as_pdf(text, output_path, header_text="Riassunto del documento"
     styles = getSampleStyleSheet()
     styles.add(ParagraphStyle(
         name='DoubleSpaced',
-        fontName='Times-Roman',
+        fontName='Times-Roman',     # Font incluso in ReportLab
         fontSize=12,
         leading=24,
         alignment=TA_JUSTIFY
     ))
-    styles.add(ParagraphStyle(
-        name='TitleStyle',
-        fontName='Times-Roman',
-        fontSize=16,
-        leading=28,
-        alignment=TA_CENTER,
-        spaceAfter=24
-    ))
 
     elements = []
-
-    # Titolo iniziale
-    elements.append(Paragraph(f"<b>{header_text}</b>", styles['TitleStyle']))
-    elements.append(Spacer(1, 24))
-
-    # Corpo del testo
     paragraphs = text.split("\n")
     for para in paragraphs:
         if para.strip() == "":
@@ -50,4 +37,4 @@ def save_summary_as_pdf(text, output_path, header_text="Riassunto del documento"
         elements.append(Spacer(1, 12))
 
     doc.build(elements)
-    print(f"📄 PDF salvato in: {output_path}")
+    print(f" PDF salvato in: {output_path}")
