@@ -8,7 +8,7 @@ def extract_pages(api_key, signed_url):
         model="mistral-ocr-latest",
         document={
             "type": "document_url",
-            "document_url": signed_url,  # ✅ corretto così
+            "document_url": signed_url, 
         }
     )
     return ocr_response.pages

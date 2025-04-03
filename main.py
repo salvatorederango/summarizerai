@@ -7,24 +7,43 @@ import os
 
 def main():
     load_dotenv()
+
     api_key = os.getenv("MISTRAL_API_KEY")
-    pdf_path = os.getenv("FILE_INPUT_PATH")
+    input_dir = os.getenv("FILE_INPUT_DIR", "data/input")
+    output_dir = os.getenv("FILE_OUTPUT_DIR", "data/output")
 
-    file_id, signed_url = upload_pdf(api_key, pdf_path)
-    pages = extract_pages(api_key, signed_url)
+    os.makedirs(output_dir, exist_ok=True)
 
-    output_pdf_path = os.getenv("FILE_OUTPUT_PATH")
-    
-    save_markdown_as_pdf(pages, output_pdf_path)
+    for filename in os.listdir(input_dir):
+        if not filename.lower().endswith(".pdf"):
+            continue
 
-    summary = summarize_text(api_key, pages)
-    print("\n🧠 Riassunto:\n")
-    print(summary)
+        pdf_path = os.path.join(input_dir, filename)
+        print(f"Elaboro il file: {pdf_path}")
 
-    # Salviamo anche il riassunto in un file
-    with open("data/output/riassunto.txt", "w", encoding="utf-8") as f:
-        f.write(summary)
+        try:
+            file_id, signed_url = upload_pdf(api_key, pdf_path)
+            pages = extract_pages(api_key, signed_url)
+
+            basename = os.path.splitext(filename)[0]
+            #output_pdf_path = os.path.join(output_dir, f"{basename}_estratto.md")
+            output_summary_path = os.path.join(output_dir, f"{basename}_riassunto.txt")
+
+            #save_markdown_as_pdf(pages, output_pdf_path)
+
+            summary = summarize_text(api_key, pages)
+            print(f"\n🧠 Riassunto per {filename}:\n")
+            print(summary)
+
+            with open(output_summary_path, "w", encoding="utf-8") as f:
+                f.write(summary)
+
+            print(f"✅ File completato: {filename}\n")
+
+        except Exception as e:
+            print(f"❌ Errore con {filename}: {e}")
 
 if __name__ == "__main__":
     main()
+
 

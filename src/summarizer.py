@@ -14,9 +14,12 @@ def summarize_text(api_key, pages):
     messages = [
             {
                 "role": "user",
-                #"content": "Fai il riassunto del seguente testo per ogni paragrafo che trovi? Non deve essere brevissimo, e deve contenere tutti i concetti principali. Dovrò rispondere ad una batteria di domande: "+full_text,
-                #"content": "Fai il riassunto del seguente testo per ogni paragrafo che trovi? mi fai un elenco puntato di tutti i concetti da ricordare che possono chiedermi? "+full_text,
-                "content": "Mi riassumi per paragrafo questo testo? non deve essere troppo corto: "+full_text,
+                "content": "Fai il riassunto del seguente testo per ogni paragrafo che trovi? Non deve essere brevissimo, e deve contenere tutti i concetti principali. Dovrò rispondere ad una batteria di domande: "+full_text,
+                #"content": "Fai il riassunto del seguente testo per ogni paragrafo che trovi e mi fai un elenco puntato di tutti i concetti da ricordare che possono chiedermi sempre per ogni paragrafo "+full_text,
+                #"content": " mi fai un elenco puntato di tutti i concetti da ricordare che possono chiedermi per ogni paragrafo che trovi nel seguente testo: "+full_text,
+                #"content": "Fai un riassunto per ogni paragrafo facendo un elenco puntato delle cose da ricordare, dovrò rispondere a delle domande: "+full_text,
+                
+                #"content": "Mi riassumi per paragrafo questo testo? non deve essere troppo corto: "+full_text,
 
             },
         ]

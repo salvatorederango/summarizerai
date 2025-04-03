@@ -1,6 +1,6 @@
-# 🧠 PdfSummarizerAI
+# 🧠 SUMMERRIZERAI
 
-**PdfSummarizerAI** è un progetto Python che riceve un file PDF e, sfruttando le API di **Mistral AI**, esegue il riconoscimento del testo (OCR) e restituisce un riassunto del contenuto.
+**SUMMERRIZERAI** è un progetto Python che riceve un file PDF e, sfruttando le API di **Mistral AI**, esegue il riconoscimento del testo (OCR) e restituisce un riassunto del contenuto.
 
 ---
 
@@ -15,7 +15,18 @@
 
 ## 🗂️ Struttura del progetto
 
-PdfSummarizerAI/ ├── data/ │ └── input/ # Inserisci qui i file PDF da elaborare ├── src/ │ ├── mistral_uploader.py # Upload dei file PDF │ ├── mistral_ocr.py # Richiesta OCR e riassunto ├── main.py # Punto di ingresso principale ├── .gitignore # Esclusione file da Git ├── requirements.txt # Dipendenze Python └── README.md # Questo file
+PdfSummarizerAI/ 
+├── data/ 
+│ └── input/ # Inserisci qui i file PDF da elaborare 
+├── src/ 
+    │ 
+    ├── mistral_uploader.py # Upload dei file PDF 
+    │ 
+    ├── mistral_ocr.py # Richiesta OCR e riassunto 
+├── main.py # Punto di ingresso principale 
+├── .gitignore # Esclusione file da Git 
+├── requirements.txt # Dipendenze Python 
+└── README.md # Questo file
 
 
 ---
