@@ -1,4 +1,4 @@
-# 🧠 SUMMERRIZERAI
+# 🧠 SUMMERIZERAI
 
 **SUMMERRIZERAI** è un progetto Python che riceve un file PDF e, sfruttando le API di **Mistral AI**, esegue il riconoscimento del testo (OCR) e restituisce un riassunto del contenuto.
 
@@ -68,8 +68,9 @@ python main.py
 
 
 Utilizzo
-Inserisci un file PDF nella cartella data/input/ (es: 1.pdf)
+Inserisci un file PDF o una directory con pdf nella cartella data/input/ (es: 1.pdf)
 
 Avvia main.py
 
-Otterrai un riassunto stampato in console
+Otterrai in data/output un'analoga struttura di cartelle con i file con i riassunti direttamente nel formato pdf.
+L'applicazione estrae dall'intestazione il nome del titolo per ogni file da generare.
